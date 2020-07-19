@@ -1,0 +1,63 @@
+/*https://www.hackerrank.com/challenges/richie-rich/problem?isFullScreen=true
+https://www.geeksforgeeks.org/make-largest-palindrome-changing-k-digits*/
+
+
+string highestValuePalindrome(string str, int n, int k) {
+    int i,j;
+
+    int start=0;
+    int end=str.size()-1;
+    string palin=str;
+    while(start<end)
+    {
+        if(str[start]!=str[end])
+        {
+            palin[end]=palin[start]=max(str[start],str[end]);
+            k=k-1;
+        }
+        start=start+1;
+        end=end-1;
+    }
+    if(k<0)
+    {
+        return "-1";
+    }
+
+    start=0;
+    end=str.size()-1;
+    while(start<=end)
+    {
+        if(start==end)
+        {
+            if(k>0)
+            {
+                palin[start]='9';
+                k=k-1;
+            }
+        }
+
+        if(palin[start]<'9')
+        {
+            if (k >= 2 && palin[start] == str[start] && 
+                palin[end] == str[end]) 
+            {
+               k=k-2;
+               palin[start]='9';
+               palin[end]='9'; 
+            }
+            else if (k >= 1 && (palin[start] != str[start] || 
+                                palin[end] != str[end])) 
+            {
+                k=k-1;
+                palin[start]='9';
+                palin[end]='9'; 
+            }
+        }
+       
+        
+        start=start+1;
+        end=end-1;
+    }
+
+    return palin;
+}
